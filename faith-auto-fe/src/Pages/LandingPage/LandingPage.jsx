@@ -1,14 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
+//importing swiper modules to implement carousel
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination, Autoplay } from "swiper/modules";
+
+import Tesla from "../../assets/Car_Images/Tesla.jpg";
+import BMW from "../../assets/Car_Images/BMW.jpg";
+import Ford from "../../assets/Car_Images/Ford.jpg";
+
 const LandingPage = () => {
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* Banner Section */}
-      <div className="bg-blue-500 text-white text-center p-10">
-        <h1 className="text-3xl font-bold">Banner with Car Picture and Name</h1>
-      </div>
-
+      {/* Banner Section using the banner component */}
+      <Banner />
       <div className="container mx-auto p-4 grid grid-cols-4 gap-4">
         {/* Sidebar (Brand Names & Types) */}
         <div className="col-span-1 bg-green-400 p-4 text-white">
@@ -30,7 +37,6 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
-
       {/* Get Started Button */}
       <div className="text-center mt-10">
         <Link to="/login">
@@ -39,6 +45,33 @@ const LandingPage = () => {
           </button>
         </Link>
       </div>
+    </div>
+  );
+};
+
+// Banner Component
+const Banner = () => {
+  const carImages = [BMW, Ford, Tesla];
+
+  return (
+    <div className="w-full">
+      <Swiper
+        modules={[Pagination, Autoplay]}
+        pagination={{ clickable: true }}
+        autoplay={{ delay: 3000 }}
+        loop={true}
+        className="w-full h-80"
+      >
+        {carImages.map((image, index) => (
+          <SwiperSlide key={index}>
+            <img
+              src={image}
+              alt={`Car ${index + 1}`}
+              className="w-full h-full object-cover"
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 };
